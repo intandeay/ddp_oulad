@@ -73,7 +73,7 @@ This tab is showing the relationship between final result of the assessment and 
 
 ## Relevant Links
 
-Github:
+Github: <https://github.com/intandeay/ddp_oulad>
 
 Shiny application: <https://intandea.shinyapps.io/ddp_oulad/>
 
