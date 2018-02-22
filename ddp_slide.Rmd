@@ -1,0 +1,81 @@
+---
+title: "Open University Learning Analytics Dataset Exploration"
+author: "Intan Dea Yutami"
+date: "22 Februari 2018"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r echo = FALSE, message=FALSE}
+    library(ggplot2)
+    library(dplyr)
+    studInfo <- read.csv("studentInfo.csv")
+```
+## Brief Description of App
+
+This application is based on Open University Learning Dataset. The dataset is taken from:
+<https://archive.ics.uci.edu/ml/datasets/Open+University+Learning+Analytics+dataset#>
+
+The dataset contains data about courses, students and their interactions with Virtual Learning Environment (VLE) for seven selected courses (called modules).
+
+This application reads the file: studentInfo.csv, which stores the information of final result of the assessment from the seven courses, done by students enrolled in those courses.
+
+The following result is the columns inside studentInfo.csv.
+
+```{r echo = FALSE}
+#studInfo <- read.csv("studentInfo.csv")
+head(studInfo)
+```
+
+## Tab 1 : General Passing Rate
+
+This tab is basically showing the relationship between number of students passing the assessment and two other variables selected by the user. User also enters a specific number as sample size to subset the dataset.  
+
+Student is considered passed if his/her final result is either 'Passed' or 'Distinction'. Below is the example of plot from 500 random samples taken from the dataset.
+
+```{r echo = FALSE, message = FALSE}
+
+    new_df <- studInfo[sample(nrow(studInfo), 1000), ]
+    new_df$isPassed <- ifelse(new_df$final_result == "Distinction" |
+                                            new_df$final_result == "Pass", 1, 0)
+    new_df$gender <- as.factor(new_df$gender)
+    new_df$region <- as.factor(new_df$region)
+    sum_table <- group_by(new_df, gender, region) %>% summarize(isPassed = sum(isPassed))
+    
+    p <- ggplot(sum_table, aes(region, isPassed, fill = region)) + geom_bar(stat = "identity")
+    input_x1 <- toupper("gender")
+    p <- p + ggtitle("Total Passing Students by Gender and Region ") + facet_grid( . ~ gender) + scale_x_discrete(labels = abbreviate) + theme(axis.text.x = element_text(angle = 90, hjust = 1))  + labs(y = "Total Students Passed", x = "") + guides(fill=guide_legend(title=paste("", input_x1)))
+    print(p)
+```
+
+## Tab 2 : Course-Based Passing Result
+
+This tab is showing the relationship between final result of the assessment and a variable picked by user from a specific course. Below is an example of the plot.
+
+```{r echo = FALSE, message = FALSE}
+    infoModule <- studInfo[studInfo$code_module == "CCC",]
+    count_res <- table(infoModule$final_result, infoModule$highest_education)
+    colorList <- c("darkblue", "red", "darkgreen", "gold")                                      
+    par(mar=c(10.1, 4.1, 2.1, 8.1), xpd=TRUE)
+    barplot(count_res, 
+            main="Final Result Distribution by Highest Education from course CCC", 
+            ylab = "Number of Students", las = 2,
+            col=colorList
+    )
+    legend("topright", inset=c(-0.1,0),
+           legend = rownames(count_res),
+           fill = colorList
+    )
+```
+
+## Relevant Links
+
+Github:
+
+Shiny application: <https://intandea.shinyapps.io/ddp_oulad/>
+
+Open University Learning Analytics Dataset: <https://analyse.kmi.open.ac.uk/open_dataset>
+
