@@ -36,6 +36,8 @@ This tab is basically showing the relationship between number of students passin
 
 Student is considered passed if his/her final result is either 'Passed' or 'Distinction'. Below is the example of plot from 500 random samples taken from the dataset.
 
+Just choose a number to set as sample size on the left panel, and select two other variables to explore the relationship!
+
 ```{r echo = FALSE, message = FALSE}
 
     new_df <- studInfo[sample(nrow(studInfo), 1000), ]
@@ -46,7 +48,7 @@ Student is considered passed if his/her final result is either 'Passed' or 'Dist
     sum_table <- group_by(new_df, gender, region) %>% summarize(isPassed = sum(isPassed))
     
     p <- ggplot(sum_table, aes(region, isPassed, fill = region)) + geom_bar(stat = "identity")
-    input_x1 <- toupper("gender")
+    input_x1 <- toupper("Region")
     p <- p + ggtitle("Total Passing Students by Gender and Region ") + facet_grid( . ~ gender) + scale_x_discrete(labels = abbreviate) + theme(axis.text.x = element_text(angle = 90, hjust = 1))  + labs(y = "Total Students Passed", x = "") + guides(fill=guide_legend(title=paste("", input_x1)))
     print(p)
 ```
@@ -54,6 +56,8 @@ Student is considered passed if his/her final result is either 'Passed' or 'Dist
 ## Tab 2 : Course-Based Passing Result
 
 This tab is showing the relationship between final result of the assessment and a variable picked by user from a specific course. Below is an example of the plot.
+
+To see the plot, choose a course and a parameter to relate to final result of the assessment.
 
 ```{r echo = FALSE, message = FALSE}
     infoModule <- studInfo[studInfo$code_module == "CCC",]

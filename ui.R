@@ -85,6 +85,10 @@ shinyUI(fluidPage(
                            p("This application reads the studentInfo.csv, which stores the information of final result of the assessment from the seven courses."),
                            p("This tab is basically showing the relationship between number of students passing the assessment from the course and two other variables, taken from some random samples which user specifies the amount on the left."),
                            p("Student is considered passed if his/her final result is either passed or distinction."),
+                           p("Directions: "),
+                           p("1. Select number of samples you want on the left panel "),
+                           p("2. Select a variable to group"),
+                           p("3. Select another parameter"),
                            plotOutput("plot1"),
                            br(),
                            textOutput("summaryTitle"),
@@ -97,6 +101,9 @@ shinyUI(fluidPage(
                            p("It contains data about courses, students and their interactions with Virtual Learning Environment (VLE) for seven selected courses (called modules)."),
                            p("This application reads the studentInfo.csv, which stores the information of final result of the assessment from the seven courses."),
                            p("This tab is showing the relationship between final result of the assessment and a variable picked by user from a specific course."),
+                           p("Directions: "),
+                           p("1. Select a course you want to explore"),
+                           p("2. Select a variable"),
                            plotOutput("plot2"))
       )
    
