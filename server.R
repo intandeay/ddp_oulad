@@ -14,6 +14,7 @@ library(lattice)
 
 
 studInfo <- read.csv("studentInfo.csv")
+#numberPassed <- 0
 
 colorList <- c("darkblue", "red", "darkgreen", "gold")
 
@@ -33,13 +34,18 @@ shinyServer(function(input, output) {
                       )
     
     sum_table <- group_by(new_df, groupby, par1) %>% summarize(isPassed = sum(isPassed))
-    
+    numberPassed <- sum(sum_table$isPassed)
+    output$numberPassed <- renderText({
+      paste("Total Passing Student: ", numberPassed)
+    })
     p <- ggplot(sum_table, aes(par1, isPassed, fill = par1)) + geom_bar(stat = "identity")
     input_x1 <- toupper(input$par1)
     p <- p + ggtitle(paste("Total Passing Students by ", input$par1, " and ", input$groupby)) + facet_grid( . ~ groupby) + scale_x_discrete(labels = abbreviate) + theme(axis.text.x = element_text(angle = 90, hjust = 1))  + labs(y = "Total Students Passed", x = "") + guides(fill=guide_legend(title=paste("", input_x1)))
     print(p)
   })
    
+  
+  
   output$summaryTitle <- renderText({
     paste("Summary of ", input$sampleSize, " samples")
   })

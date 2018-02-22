@@ -92,6 +92,7 @@ shinyUI(fluidPage(
                            plotOutput("plot1"),
                            br(),
                            textOutput("summaryTitle"),
+                           textOutput("numberPassed"),
                            verbatimTextOutput("summary"),
                            tags$head(tags$style("#summary{font-size:10px}"))
                            ),
