@@ -25,7 +25,7 @@ This application reads the file: studentInfo.csv, which stores the information o
 
 The following result is the columns inside studentInfo.csv.
 
-```{r echo = FALSE}
+```{r echo=TRUE}
 #studInfo <- read.csv("studentInfo.csv")
 head(studInfo)
 ```
@@ -38,7 +38,7 @@ Student is considered passed if his/her final result is either 'Passed' or 'Dist
 
 Just choose a number to set as sample size on the left panel, and select two other variables to explore the relationship!
 
-```{r echo = FALSE, message = FALSE}
+```{r echo = TRUE, message = FALSE}
 
     new_df <- studInfo[sample(nrow(studInfo), 1000), ]
     new_df$isPassed <- ifelse(new_df$final_result == "Distinction" |
@@ -59,7 +59,7 @@ This tab is showing the relationship between final result of the assessment and 
 
 To see the plot, choose a course and a parameter to relate to final result of the assessment.
 
-```{r echo = FALSE, message = FALSE}
+```{r echo = TRUE, message = FALSE}
     infoModule <- studInfo[studInfo$code_module == "CCC",]
     count_res <- table(infoModule$final_result, infoModule$highest_education)
     colorList <- c("darkblue", "red", "darkgreen", "gold")                                      

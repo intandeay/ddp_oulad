@@ -105,7 +105,22 @@ shinyUI(fluidPage(
                            p("Directions: "),
                            p("1. Select a course you want to explore"),
                            p("2. Select a variable"),
-                           plotOutput("plot2"))
+                           plotOutput("plot2")
+                           ),
+                  tabPanel("Variable Description", br(),
+                           p("code_module - an identification code for a module on which the student is registered."),
+                           p("code_presentation : the identification code of the presentation during which the student is registered on the module."),
+                           p("id_student - a unique identification number for the student."),
+                           p("gender - the student's gender."),
+                           p("region - identifies the geographic region, where the student lived while taking the module:presentation."),
+                           p("highest_education - highest student education level on entry to the module presentation."),
+                           p("imd_band - specifies the Index of Multiple Depravation band of the place where the student lived during the module:presentation."),
+                           p("age_band - band of the student's age."),
+                           p("num_of_prev_attempts - the number times the student has attempted this module."),
+                           p("studied_credits - the total number of credits for the modules the student is currently studying."),
+                           p("disability - indicates whether the student has declared a disability."),
+                           p("final_result - student's final result in the module-presentation.")
+                           )
       )
    
     )
